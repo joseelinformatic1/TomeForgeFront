@@ -31,48 +31,6 @@ export class PersonajesComponent {
       nivel: 2,
       campanya: 'D&D 5ª Ed.',
       imagen: 'assets/mortimer.jpg'
-    },
-    {
-      nombre: 'Mortimer el Risueño',
-      clase: 'Bardo',
-      nivel: 2,
-      campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg'
-    },
-    {
-      nombre: 'Mortimer el Risueño',
-      clase: 'Bardo',
-      nivel: 2,
-      campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg'
-    },
-    {
-      nombre: 'Mortimer el Risueño',
-      clase: 'Bardo',
-      nivel: 2,
-      campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg'
-    },
-    {
-      nombre: 'Mortimer el Risueño',
-      clase: 'Bardo',
-      nivel: 2,
-      campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg'
-    },
-    {
-      nombre: 'Mortimer el Risueño',
-      clase: 'Bardo',
-      nivel: 2,
-      campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg'
-    },
-    {
-      nombre: 'Mortimer el Risueño',
-      clase: 'Bardo',
-      nivel: 2,
-      campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg'
     }
     // Agrega más personajes aquí
   ];

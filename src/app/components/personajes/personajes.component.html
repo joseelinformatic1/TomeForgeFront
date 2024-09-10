@@ -1,27 +1,31 @@
-<div class="personajes-header">
+<div class="container">
+  <div class="personajes-header">
     <h1>Personajes</h1>
     <button class="btn-add">+ Añadir</button>
   </div>
-  
-  <div class="personajes-filtros">
-    <input type="text" placeholder="Buscar por nombre" class="filtro-input" />
-    <select class="filtro-select">
-      <option value="">- Filtrar por campaña -</option>
-      <option value="campaña1">Campaña 1</option>
-      <option value="campaña2">Campaña 2</option>
-    </select>
-    <select class="filtro-select">
-      <option value="activo">En activo</option>
-      <option value="inactivo">Inactivo</option>
-    </select>
-    <select class="filtro-select">
-      <option value="recientes">Recientes primero</option>
-      <option value="antiguos">Antiguos primero</option>
-    </select>
-    <button class="btn-buscar">Buscar</button>
-  </div>
-  
+
   <div class="personajes-lista">
+    <div class="personajes-filtros">
+      <h2 class="buscar-titulo">Buscar Personajes</h2> <!-- Título dentro del contenedor de filtros -->
+  
+      <input type="text" placeholder="Buscar por nombre" class="filtro-input" />
+      <select class="filtro-select">
+        <option value="">- Filtrar por campaña -</option>
+        <option value="campaña1">Campaña 1</option>
+        <option value="campaña2">Campaña 2</option>
+      </select>
+      <select class="filtro-select">
+        <option value="activo">En activo</option>
+        <option value="inactivo">Inactivo</option>
+      </select>
+      <select class="filtro-select">
+        <option value="recientes">Recientes primero</option>
+        <option value="antiguos">Antiguos primero</option>
+        <option value="ordenar-nombre">Ordenar por nombre</option>
+      </select>
+      <button class="btn-buscar">Buscar</button>
+    </div>
+
     <div class="personaje-item" *ngFor="let personaje of personajes">
       <div class="personaje-info">
         <img [src]="personaje.imagen" alt="Imagen del personaje" class="personaje-avatar" />
@@ -38,5 +42,11 @@
       </div>
     </div>
   </div>
+
+</div>
+ 
+
+
+
   
   
