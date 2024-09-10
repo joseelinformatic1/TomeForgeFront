@@ -1,0 +1,109 @@
+/* Sección de héroe (hero section) */
+.hero-section {
+    background: linear-gradient(135deg, #6b32aa, #9370db);
+    color: #fff;
+    padding: 100px 20px;
+    text-align: center;
+  }
+  
+  .hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+  
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .hero-buttons .btn {
+    background-color: #ffffff;
+    color: #6b32aa;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+  }
+  
+  .hero-buttons .btn:hover {
+    background-color: #4b0082;
+    color: #fff;
+  }
+  
+  /* Sección de características (features section) */
+  .features-section {
+    background-color: #f8f9fa;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  
+  .features-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #6b32aa;
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .feature-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .feature-item:hover {
+    transform: translateY(-10px);
+  }
+  
+  .feature-item i {
+    font-size: 3rem;
+    color: #6b32aa;
+    margin-bottom: 15px;
+  }
+  
+  .feature-item h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #4b0082;
+  }
+  
+  .feature-item p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  /* Responsividad */
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2.5rem;
+    }
+  
+    .hero-content p {
+      font-size: 1.2rem;
+    }
+  
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .hero-buttons .btn {
+      padding: 10px 20px;
+      font-size: 1rem;
+    }
+  }
+  

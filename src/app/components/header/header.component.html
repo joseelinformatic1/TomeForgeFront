@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="https://via.placeholder.com/50" alt="Logo" class="d-inline-block align-text-top">
+        TomeForge
+      </a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+              <i class="fas fa-home"></i> Inicio
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/characters"><i class="fas fa-user"></i> Mis personajes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/campains"><i class="fas fa-dice"></i> Campañas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active"  routerLink="/friends"><i class="fas fa-users"></i> Amigos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/games"><i class="fas fa-gamepad"></i> Juegos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/tabletop"><i class="fas fa-table"></i> Tablero Virtual</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login"><i class="fas fa-user-circle"></i> Iniciar sesión</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>

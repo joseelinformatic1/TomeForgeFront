@@ -1,0 +1,42 @@
+<div class="personajes-header">
+    <h1>Personajes</h1>
+    <button class="btn-add">+ Añadir</button>
+  </div>
+  
+  <div class="personajes-filtros">
+    <input type="text" placeholder="Buscar por nombre" class="filtro-input" />
+    <select class="filtro-select">
+      <option value="">- Filtrar por campaña -</option>
+      <option value="campaña1">Campaña 1</option>
+      <option value="campaña2">Campaña 2</option>
+    </select>
+    <select class="filtro-select">
+      <option value="activo">En activo</option>
+      <option value="inactivo">Inactivo</option>
+    </select>
+    <select class="filtro-select">
+      <option value="recientes">Recientes primero</option>
+      <option value="antiguos">Antiguos primero</option>
+    </select>
+    <button class="btn-buscar">Buscar</button>
+  </div>
+  
+  <div class="personajes-lista">
+    <div class="personaje-item" *ngFor="let personaje of personajes">
+      <div class="personaje-info">
+        <img [src]="personaje.imagen" alt="Imagen del personaje" class="personaje-avatar" />
+        <div class="personaje-detalles">
+          <h2>{{ personaje.nombre }}</h2>
+          <p>{{ personaje.clase }} - Nivel {{ personaje.nivel }}</p>
+          <p>{{ personaje.campanya }}</p>
+        </div>
+      </div>
+      <div class="personaje-acciones">
+        <button class="btn-detalles" (click)="verDetalles(personaje)">Detalles</button>
+        <button class="btn-editar" (click)="editarPersonaje(personaje)">Editar</button>
+        <button class="btn-eliminar" (click)="eliminarPersonaje(personaje)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+  
+  

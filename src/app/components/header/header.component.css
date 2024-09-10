@@ -1,0 +1,72 @@
+/* Estilos generales del navbar */
+.custom-navbar {
+  background: #6B32AA;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+
+}
+
+.navbar-nav .nav-link {
+  color: #f8f9fa;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  transition: color 0.3s, box-shadow 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffffff;
+  text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.7);
+}
+
+/* Estilos para el enlace activo */
+.navbar-nav .nav-link.active-nav {
+  color: #ffffff;  /* Color blanco para el enlace activo */
+  background-color: #4b0082;  /* Fondo morado oscuro para resaltar el enlace activo */
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px rgba(255, 255, 255, 0.7);  /* Efecto de "iluminado" */
+  border-radius: 4px;  /* Bordes redondeados para el enlace activo */
+  padding: 0.5rem 1rem;  /* Espaciado adicional para el enlace activo */
+}
+
+/* Opcional: Subrayar el enlace activo */
+.navbar-nav .nav-link.active-nav::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #ffffff;
+  position: relative;
+  top: 3px;
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+  .navbar-nav .nav-link {
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+.navbar-nav .nav-link.active {
+  color: #ffffff;  /* Cambia el color del texto a blanco */
+  position: relative;  /* Posicionamiento relativo para usar pseudo-elementos */
+}
+
+.navbar-nav .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;  /* Coloca el subrayado ligeramente debajo del enlace */
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #ffffff;  /* El color del subrayado es blanco */
+  border-radius: 2px;  /* Opcional: Borde redondeado para el subrayado */
+  transition: width 0.3s ease;  /* Transición suave para el subrayado */
+}
+
+.navbar-nav .nav-link.active:hover::after {
+  width: 120%;  /* Hace que el subrayado crezca un poco cuando se pasa el mouse */
+}

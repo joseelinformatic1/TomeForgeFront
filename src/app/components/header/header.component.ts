@@ -1,25 +1,32 @@
-import { RouterOutlet } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { StorageService } from './services/storage.service';
-import { AuthService } from './services/auth.service';
-
-import { Component } from '@angular/core';
-import { HeaderComponent } from './components/header/header.component';
+import { RouterLink, RouterOutlet,RouterModule } from '@angular/router';
+import { Component,OnInit } from '@angular/core';
+import { StorageService } from '../../services/storage.service';
+import { LoginComponent } from '../login/login.component';
+import { AuthService } from '../../services/auth.service';
 
 
+StorageService
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
-    imports: [RouterOutlet, LoginComponent, HeaderComponent]
+  selector: 'app-header',
+  standalone: true,
+
+  imports: [RouterOutlet, LoginComponent,RouterLink,RouterModule],
+
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class AppComponent {
+export class HeaderComponent implements OnInit {
   usersListVisible: boolean = false;
 
+  esAdmin: boolean = false;
+
   toggleAdminMode() {
-    this.usersListVisible = !this.usersListVisible;
+    this.esAdmin = !this.esAdmin;
+  }
+
+  toggleAdminModeFromChild(esAdmin: boolean) {
+    this.esAdmin = esAdmin;
   }
   
   title(title: any) {
@@ -46,6 +53,7 @@ export class AppComponent {
      
     }
   }
+
   logout(): void {
     this.authService.logout();
     this.storageService.removeToken();

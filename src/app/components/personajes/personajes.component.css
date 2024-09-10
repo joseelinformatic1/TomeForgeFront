@@ -1,0 +1,160 @@
+/* Fondo oscuro para la vista */
+body {
+    background-color: #1a1a1a; /* Un tono más oscuro */
+    color: #ffffff; /* Asegurarse de que el texto sea legible */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .personajes-container, .personajes-header, .personajes-filtros, .personajes-lista {
+    background-color: #1a1a1a; /* Fondo de los contenedores más oscuro */
+  }
+  
+  /* Estilos del header */
+  .personajes-header {
+    background-color: #1e1e1e; /* Un tono ligeramente más oscuro para el header */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .personajes-header h1 {
+    font-size: 2rem;
+    color: #ffffff;
+  }
+  
+  .btn-add {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .btn-add:hover {
+    background-color: #c9302c;
+  }
+  
+  /* Estilos de los filtros */
+  .personajes-filtros {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 20px;
+    background-color: #242424; /* Oscurecer el fondo de los filtros */
+    border-radius: 8px;
+  }
+  
+  .filtro-input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #333; /* Fondo del input más oscuro */
+    color: white;
+  }
+  
+  .filtro-select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #333; /* Fondo más oscuro para los selectores */
+    color: white;
+  }
+  
+  .btn-buscar {
+    background-color: #ec971f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-buscar:hover {
+    background-color: #d58512;
+  }
+  
+  /* Estilos de la lista de personajes */
+  .personajes-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .personaje-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222; /* Un fondo oscuro para las tarjetas de personajes */
+    border-radius: 8px;
+    padding: 20px;
+    width: calc(50% - 15px);
+    transition: background-color 0.3s;
+  }
+  
+  .personaje-item:hover {
+    background-color: #2e2e2e; /* Un hover ligeramente más claro */
+  }
+  
+  .personaje-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .personaje-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .personaje-detalles h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.2rem;
+  }
+  
+  .personaje-detalles p {
+    margin: 5px 0;
+    color: #ccc; /* Color más claro para los detalles secundarios */
+  }
+  
+  /* Estilos de los botones de acción */
+  .personaje-acciones {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn-detalles,
+  .btn-editar,
+  .btn-eliminar {
+    background-color: #6b32aa;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-eliminar {
+    background-color: #d9534f;
+  }
+  
+  .btn-detalles:hover {
+    background-color: #563d7c;
+  }
+  
+  .btn-editar:hover {
+    background-color: #5bc0de;
+  }
+  
+  .btn-eliminar:hover {
+    background-color: #c9302c;
+  }
+  
