@@ -1,52 +1,67 @@
-<div class="container">
-  <div class="personajes-header">
+<div class="container mt-5">
+  <!-- Header de personajes con botón de añadir -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
     <h1>Personajes</h1>
-    <button class="btn-add">+ Añadir</button>
+    <a href="/addCharacter" class="btn add fw-bold">+ Añadir</a>
   </div>
 
-  <div class="personajes-lista">
-    <div class="personajes-filtros">
-      <h2 class="buscar-titulo">Buscar Personajes</h2> <!-- Título dentro del contenedor de filtros -->
-  
-      <input type="text" placeholder="Buscar por nombre" class="filtro-input" />
-      <select class="filtro-select">
-        <option value="">- Filtrar por campaña -</option>
-        <option value="campaña1">Campaña 1</option>
-        <option value="campaña2">Campaña 2</option>
-      </select>
-      <select class="filtro-select">
-        <option value="activo">En activo</option>
-        <option value="inactivo">Inactivo</option>
-      </select>
-      <select class="filtro-select">
-        <option value="recientes">Recientes primero</option>
-        <option value="antiguos">Antiguos primero</option>
-        <option value="ordenar-nombre">Ordenar por nombre</option>
-      </select>
-      <button class="btn-buscar">Buscar</button>
+  <!-- Contenedor de filtros -->
+  <div class="card mb-4 border-0 shadow-sm">
+    <div class="card-body header">
+      <h2 class="h5 text-uppercase mb-3">Buscar Personajes</h2>
+      <form class="row g-2 align-items-center">
+        <!-- Buscar por nombre -->
+        <div class="col-md-3">
+          <input type="text" class="form-control form-control-sm" placeholder="Buscar por nombre">
+        </div>
+        <!-- Filtrar por campaña -->
+        <div class="col-md-3">
+          <select class="form-select form-select-sm">
+            <option value="">- Filtrar por campaña -</option>
+            <option value="campaña1">Campaña 1</option>
+            <option value="campaña2">Campaña 2</option>
+          </select>
+        </div>
+        <!-- Estado del personaje -->
+        <div class="col-md-3">
+          <select class="form-select form-select-sm">
+            <option value="activo">En activo</option>
+            <option value="inactivo">Inactivo</option>
+          </select>
+        </div>
+        <!-- Ordenar por -->
+        <div class="col-md-3">
+          <select class="form-select form-select-sm">
+            <option value="recientes">Recientes primero</option>
+            <option value="antiguos">Antiguos primero</option>
+            <option value="ordenar-nombre">Ordenar por nombre</option>
+          </select>
+        </div>
+        <!-- Botón de buscar -->
+        <div class="col-md-auto">
+          <button class="btn add fw-bold">Buscar</button>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <div class="personaje-item" *ngFor="let personaje of personajes">
-      <div class="personaje-info">
-        <img [src]="personaje.imagen" alt="Imagen del personaje" class="personaje-avatar" />
-        <div class="personaje-detalles">
-          <h2>{{ personaje.nombre }}</h2>
-          <p>{{ personaje.clase }} - Nivel {{ personaje.nivel }}</p>
-          <p>{{ personaje.campanya }}</p>
+  <!-- Lista de personajes -->
+  <div class="row">
+    <!-- Repetir este bloque para cada personaje -->
+    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let personaje of personajes">
+      <div class="card border-0 shadow-sm h-auto">
+        <div class="card-body tarjeta p-2">
+          <div class="d-flex align-items-center">
+            <img [src]="personaje.imagen" alt="" class="rounded-circle me-3 shadow-sm" style="width: 50px; height: 50px;">
+            <div>
+              <h6 class="card-title mb-1">{{ personaje.nombre }}</h6> <!-- Título más pequeño -->
+              <p class="card-text mb-1 small">{{ personaje.clase }} - Nivel {{ personaje.nivel }}</p> <!-- Texto más pequeño -->
+              <p class="card-text mb-0"><small class="text-muted">{{ personaje.campanya }}</small></p> <!-- Campaña en un estilo más pequeño -->
+            </div>
+          </div>
         </div>
       </div>
-      <div class="personaje-acciones">
-        <button class="btn-detalles" (click)="verDetalles(personaje)">Detalles</button>
-        <button class="btn-editar" (click)="editarPersonaje(personaje)">Editar</button>
-        <button class="btn-eliminar" (click)="eliminarPersonaje(personaje)">Eliminar</button>
-      </div>
     </div>
   </div>
-
+  
 </div>
- 
-
-
-
-  
-  

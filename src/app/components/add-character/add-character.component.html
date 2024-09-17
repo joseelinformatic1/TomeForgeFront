@@ -1,0 +1,155 @@
+<div class="container mt-5">
+
+
+  <!-- Título principal -->
+  <div class="row ">
+    <div class="col-12 d-flex text-black justify-content-between align-items-center">
+      <div>
+        <h5>AÑADIR PERSONAJE</h5>
+        <p class="">D&D 5ª ED. / AÑADIR PERSONAJE</p>
+      </div>
+      <a href="/characters" class="btn volver"> Volver</a>
+    </div>
+  </div>
+
+  <!-- Fila principal -->
+  <div class="row mt-0">
+    <!-- Primera columna: Detalles -->
+    <div class="col-lg-8 col-md-12 " >
+      <div class="detalles p-3 rounded  shadow-sm">
+        <h5>DETALLES</h5>
+        <p>Introduce los detalles de tu personaje, incluyendo su nombre, raza y clase para el nivel 1.</p>
+        
+        <div class="form-group mb-3">
+          <label for="nombre">* Nombre</label>
+          <input type="text" class="form-control" id="nombre" placeholder="Introduce el nombre">
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="raza">* Raza</label>
+          <select id="raza" class="form-select">
+            <option selected>Escoge una opción</option>
+            <option value="humano">Humano</option>
+            <option value="elfo">Elfo</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="subraza">Subraza</label>
+          <select id="subraza" class="form-select">
+            <option selected>Escoge una opción</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="clase">Clase en el nivel 1</label>
+          <input type="text" class="form-control" id="clase" value="Artifice" readonly>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="iconoClase">Icono de Clase</label>
+          <p>Maestros en desbloquear la magia en los objetos cotidianos, los artifices son los inventores supremos.</p>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="campana">Campaña</label>
+          <select id="campana" class="form-select">
+            <option selected>-</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Segunda columna: Estado y Características -->
+    <div class="col-lg-4 col-md-12">
+      <!-- Estado -->
+      <div class="estado p-1 mb-4  card shadow-sm border-0">
+          <div class="card-body">
+            <h5>ESTADO</h5>
+          <p>Ajusta el estado del personaje para categorizarlo y encontrarlo más fácilmente en el listado principal.</p>
+          <div class="form-group mb-3">
+            <label for="estado">Estado</label>
+            <select id="estado" class="form-select">
+              <option value="activo" selected>En activo</option>
+              <option value="archivado">Archivado</option>
+              <option value="muerto">Muerto</option>
+              <option value="no_jugador">No jugador</option>
+            </select>
+          </div>
+          <p>¡En plena forma! Aparecerás en el listado principal de personajes. ¡Todo listo para la aventura!</p>
+          </div>
+      </div>
+        
+      <!-- Caracteristica -->
+      
+        <div class="caracteristicas p-1 mb-0 card shadow-sm border-0">
+          <div class="card-body">
+            <h5 class="text-uppercase">Características</h5>
+            <p>Puedes asignar las puntuaciones de característica tirando dados, gastando una cantidad de puntos o repartiendo puntuaciones, según te indique el Director de Juego.</p>
+            
+            <div class="row align-items-center mb-2">
+              <div class="col-4">Fuerza</div>
+              <div class="col-8 d-flex justify-content-between align-items-center">
+                <button class="btn btn-sm btn-secondary btn-round " (click)="decrementar('fuerza')"><i class="fa fa-minus"></i></button>
+                <span class="mx-3 text-center" style="flex: 1;">{{ caracteristicas['fuerza'].valor }}</span>
+                <button class="btn btn-sm btn-secondary btn-round"(click)="incrementar('fuerza')"><i class="fa fa-plus"></i></button>
+                <span class="ms-2"> {{ caracteristicas['fuerza'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['fuerza'].modificador }}</span>
+              </div>
+            </div>
+      
+            <div class="row align-items-center mb-2">
+              <div class="col-4">Destreza</div>
+              <div class="col-8 d-flex justify-content-between align-items-center">
+                <button class="btn btn-sm btn-secondary btn-round" (click)="decrementar('destreza')"><i class="fa fa-minus"></i></button>
+                <span class="mx-3 text-center" style="flex: 1;">{{ caracteristicas['destreza'].valor }}</span>
+                <button class="btn btn-sm btn-secondary btn-round"(click)="incrementar('destreza')"><i class="fa fa-plus"></i></button>
+                <span class="ms-2"> {{ caracteristicas['destreza'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['destreza'].modificador }}</span>
+              </div>
+            </div>
+      
+            <div class="row align-items-center mb-2">
+              <div class="col-4">Constitucion</div>
+              <div class="col-8 d-flex justify-content-between align-items-center">
+                <button class="btn btn-sm btn-secondary btn-round" (click)="decrementar('constitucion')"><i class="fa fa-minus"></i></button>
+                <span class="mx-3 text-center" style="flex: 1;">{{ caracteristicas['constitucion'].valor }}</span>
+                <button class="btn btn-sm btn-secondary btn-round"(click)="incrementar('constitucion')"><i class="fa fa-plus"></i></button>
+                <span class="ms-2"> {{ caracteristicas['constitucion'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['constitucion'].modificador }}</span>
+              </div>
+            </div>
+
+            <div class="row align-items-center mb-2">
+              <div class="col-4">Inteligencia</div>
+              <div class="col-8 d-flex justify-content-between align-items-center">
+                <button class="btn btn-sm btn-secondary btn-round"(click)="decrementar('inteligencia')"><i class="fa fa-minus"></i></button>
+                <span class="mx-3 text-center" style="flex: 1;">{{ caracteristicas['inteligencia'].valor }}</span>
+                <button class="btn btn-sm btn-secondary btn-round"(click)="incrementar('inteligencia')"><i class="fa fa-plus"></i></button>
+                <span class="ms-2"> {{ caracteristicas['inteligencia'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['inteligencia'].modificador }}</span>
+              </div>
+            </div>
+
+            <div class="row align-items-center mb-2">
+              <div class="col-4">Sabiduria</div>
+              <div class="col-8 d-flex justify-content-between align-items-center">
+                <button class="btn btn-sm btn-secondary btn-round"(click)="decrementar('sabiduria')"><i class="fa fa-minus"></i></button>
+                <span class="mx-3 text-center" style="flex: 1;">{{ caracteristicas['sabiduria'].valor }}</span>
+                <button class="btn btn-sm btn-secondary btn-round"(click)="incrementar('sabiduria')"><i class="fa fa-plus"></i></button>
+                <span class="ms-2"> {{ caracteristicas['sabiduria'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['sabiduria'].modificador }}</span>
+              </div>
+            </div>
+
+            <div class="row align-items-center mb-2">
+              <div class="col-4">Carisma</div>
+              <div class="col-8 d-flex justify-content-between align-items-center">
+                <button class="btn btn-sm btn-secondary btn-round"(click)="decrementar('carisma')"><i class="fa fa-minus"></i></button>
+                <span class="mx-3 text-center" style="flex: 1;">{{ caracteristicas['carisma'].valor }}</span>
+                <button class="btn btn-sm btn-secondary btn-round"(click)="incrementar('carisma')"><i class="fa fa-plus"></i></button>
+                <span class="ms-2"> {{ caracteristicas['carisma'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['carisma'].modificador }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+  
+    </div>
+  </div>
+</div>

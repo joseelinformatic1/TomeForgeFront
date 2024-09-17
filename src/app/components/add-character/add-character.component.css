@@ -1,0 +1,29 @@
+::ng-deep body {
+  background-color: #F5F7FA;
+}
+
+
+.detalles , .estado, .caracteristicas{
+  background-color:#FFFFFF;
+}
+
+.volver{
+  background-color: #c1a7ff;
+  color: white;
+}
+.volver:hover{
+  background-color: #a883ff;
+}
+
+/* Asegura que los botones sean circulares y tengan el mismo tamaño */
+.btn-round {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+
