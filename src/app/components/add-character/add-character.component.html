@@ -8,17 +8,19 @@
         <h5>AÑADIR PERSONAJE</h5>
         <p class="">D&D 5ª ED. / AÑADIR PERSONAJE</p>
       </div>
-      <a href="/characters" class="btn volver"> Volver</a>
+      <a href="/characters" class="btn volver"><i class="fa fa-chevron-left"></i> Volver</a>
     </div>
   </div>
 
   <!-- Fila principal -->
   <div class="row mt-0">
     <!-- Primera columna: Detalles -->
-    <div class="col-lg-8 col-md-12 " >
+    <div class="col-lg-8 col-md-12 mb-4 " >
       <div class="detalles p-3 rounded  shadow-sm">
         <h5>DETALLES</h5>
         <p>Introduce los detalles de tu personaje, incluyendo su nombre, raza y clase para el nivel 1.</p>
+        
+        <!-- Formulario de detalles -->
         
         <div class="form-group mb-3">
           <label for="nombre">* Nombre</label>
@@ -57,9 +59,61 @@
             <option selected>-</option>
           </select>
         </div>
+
+        <div class="container mt-4">
+          <div class="row">
+            <!-- Columna para Retrato -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="retrato">Retrato</label>
+                <div class="input-group">
+                  <input type="file" (change)="fileChangeEvent($event)" class="form-control" id="retrato">
+                </div>
+                <small class="form-text text-muted">
+                  El retrato se muestra en el listado de personajes de la campaña, así como otros listados en pequeño.
+                </small>
+              </div>
+              <div *ngIf="imageChangeEvent">
+                <image-cropper
+                  [imageChangedEvent]="imageChangeEvent"
+                  [maintainAspectRatio]="true"
+                  [aspectRatio]="1/1"
+                  format="png"
+                  (imageCropped)="imageCropped($event)"
+                  (cropperReady)="cropperReady()"
+                  (loadImageFailed)="loadImageFailed()"
+                ></image-cropper>
+            
+                <!-- Vista previa de la imagen recortada -->
+                <div *ngIf="croppedImage" class="mt-3">
+                  <h5>Imagen recortada:</h5>
+                  <img [src]="croppedImage" alt="Imagen recortada" class="img-fluid rounded-circle">
+                </div>
+            
+                <!-- Botones para aceptar o cancelar -->
+                <button class="btn btn-primary mt-2" (click)="guardarImagen()">Aceptar</button>
+                <button class="btn btn-secondary mt-2" (click)="cancelar()">Cancelar</button>
+              </div>
+           
+          </div>
+        
+            <!-- Columna para Imagen -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="imagen">Imagen</label>
+                <div class="input-group">
+                  <input type="file" class="form-control" id="imagen">
+                </div>
+                <small class="form-text text-muted">
+                  La imagen se muestra en la hoja de personaje, tanto digital como en papel (si está soportado).
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
-
     <!-- Segunda columna: Estado y Características -->
     <div class="col-lg-4 col-md-12">
       <!-- Estado -->
@@ -89,61 +143,156 @@
             
             <div class="row align-items-center mb-2">
               <div class="col-4">Fuerza</div>
-              <div class="col-8 d-flex justify-content-between align-items-center">
-                <button class="btn btn-sm btn-secondary btn-round " (click)="decrementar('fuerza')"><i class="fa fa-minus"></i></button>
-                <span class="mx-3 text-center" style="flex: 1;">{{ caracteristicas['fuerza'].valor }}</span>
-                <button class="btn btn-sm btn-secondary btn-round"(click)="incrementar('fuerza')"><i class="fa fa-plus"></i></button>
-                <span class="ms-2"> {{ caracteristicas['fuerza'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['fuerza'].modificador }}</span>
+              <div class="col-6 d-flex justify-content-between align-items-center">
+                <!-- Botón para decrementar la fuerza -->
+                <button class="btn btn-sm btn-secondary btn-round" (click)="decrementar('fuerza')">
+                  <i class="fa fa-minus"></i>
+                </button>
+            
+                <!-- Valor actual de la fuerza -->
+                <span class="mx-2 text-center" style="flex: 1;">{{ caracteristicas['fuerza'].valor }}</span>
+            
+                <!-- Botón para incrementar la fuerza -->
+                <button class="btn btn-sm btn-secondary btn-round" (click)="incrementar('fuerza')">
+                  <i class="fa fa-plus"></i>
+                </button>
+            
+                <!-- Mostrar modificador -->
+                <span class="ms-2">
+                  {{ caracteristicas['fuerza'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['fuerza'].modificador }}
+                </span>
+            
+                <!-- Checkboxes para asignar bonus -->
+                <div class="d-flex">
+                  <!-- Checkbox para +2 -->
+                  <input type="checkbox" class="mx-2" 
+                         [checked]="caracteristicas['fuerza'].bonus2" 
+                         [disabled]="!caracteristicas['fuerza'].bonus2 && !puedeSeleccionarBonus2" 
+                         (change)="asignarBonus('fuerza', 2)">
+            
+                  <!-- Checkbox para +1 -->
+                  <input type="checkbox" class="mx-2" 
+                         [checked]="caracteristicas['fuerza'].bonus1" 
+                         [disabled]="!caracteristicas['fuerza'].bonus1 && !puedeSeleccionarBonus1" 
+                         (change)="asignarBonus('fuerza', 1)">
+                </div>
               </div>
             </div>
+            
       
             <div class="row align-items-center mb-2">
               <div class="col-4">Destreza</div>
-              <div class="col-8 d-flex justify-content-between align-items-center">
+              <div class="col-6 d-flex justify-content-between align-items-center">
                 <button class="btn btn-sm btn-secondary btn-round" (click)="decrementar('destreza')"><i class="fa fa-minus"></i></button>
                 <span class="mx-3 text-center" style="flex: 1;">{{ caracteristicas['destreza'].valor }}</span>
                 <button class="btn btn-sm btn-secondary btn-round"(click)="incrementar('destreza')"><i class="fa fa-plus"></i></button>
                 <span class="ms-2"> {{ caracteristicas['destreza'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['destreza'].modificador }}</span>
+                <div class="d-flex">
+                  <!-- Checkbox para +2 -->
+                  <input type="checkbox" class="mx-2" 
+                         [checked]="caracteristicas['destreza'].bonus2" 
+                         [disabled]="!caracteristicas['destreza'].bonus2 && !puedeSeleccionarBonus2" 
+                         (change)="asignarBonus('destreza', 2)">
+            
+                  <!-- Checkbox para +1 -->
+                  <input type="checkbox" class="mx-2" 
+                         [checked]="caracteristicas['destreza'].bonus1" 
+                         [disabled]="!caracteristicas['destreza'].bonus1 && !puedeSeleccionarBonus1" 
+                         (change)="asignarBonus('destreza', 1)">
+                </div>
               </div>
             </div>
       
             <div class="row align-items-center mb-2">
               <div class="col-4">Constitucion</div>
-              <div class="col-8 d-flex justify-content-between align-items-center">
+              <div class="col-6 d-flex justify-content-between align-items-center">
                 <button class="btn btn-sm btn-secondary btn-round" (click)="decrementar('constitucion')"><i class="fa fa-minus"></i></button>
                 <span class="mx-3 text-center" style="flex: 1;">{{ caracteristicas['constitucion'].valor }}</span>
                 <button class="btn btn-sm btn-secondary btn-round"(click)="incrementar('constitucion')"><i class="fa fa-plus"></i></button>
                 <span class="ms-2"> {{ caracteristicas['constitucion'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['constitucion'].modificador }}</span>
+                <div class="d-flex">
+                  <!-- Checkbox para +2 -->
+                  <input type="checkbox" class="mx-2" 
+                         [checked]="caracteristicas['constitucion'].bonus2" 
+                         [disabled]="!caracteristicas['constitucion'].bonus2 && !puedeSeleccionarBonus2" 
+                         (change)="asignarBonus('constitucion', 2)">
+            
+                  <!-- Checkbox para +1 -->
+                  <input type="checkbox" class="mx-2" 
+                         [checked]="caracteristicas['constitucion'].bonus1" 
+                         [disabled]="!caracteristicas['constitucion'].bonus1 && !puedeSeleccionarBonus1" 
+                         (change)="asignarBonus('constitucion', 1)">
+                </div>
+
               </div>
             </div>
 
             <div class="row align-items-center mb-2">
               <div class="col-4">Inteligencia</div>
-              <div class="col-8 d-flex justify-content-between align-items-center">
+              <div class="col-6 d-flex justify-content-between align-items-center">
                 <button class="btn btn-sm btn-secondary btn-round"(click)="decrementar('inteligencia')"><i class="fa fa-minus"></i></button>
                 <span class="mx-3 text-center" style="flex: 1;">{{ caracteristicas['inteligencia'].valor }}</span>
                 <button class="btn btn-sm btn-secondary btn-round"(click)="incrementar('inteligencia')"><i class="fa fa-plus"></i></button>
                 <span class="ms-2"> {{ caracteristicas['inteligencia'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['inteligencia'].modificador }}</span>
+                <div class="d-flex">
+                  <!-- Checkbox para +2 -->
+                  <input type="checkbox" class="mx-2" 
+                         [checked]="caracteristicas['inteligencia'].bonus2" 
+                         [disabled]="!caracteristicas['inteligencia'].bonus2 && !puedeSeleccionarBonus2" 
+                         (change)="asignarBonus('inteligencia', 2)">
+            
+                  <!-- Checkbox para +1 -->
+                  <input type="checkbox" class="mx-2" 
+                         [checked]="caracteristicas['inteligencia'].bonus1" 
+                         [disabled]="!caracteristicas['inteligencia'].bonus1 && !puedeSeleccionarBonus1" 
+                         (change)="asignarBonus('inteligencia', 1)">
+                </div>
               </div>
             </div>
 
             <div class="row align-items-center mb-2">
               <div class="col-4">Sabiduria</div>
-              <div class="col-8 d-flex justify-content-between align-items-center">
+              <div class="col-6 d-flex justify-content-between align-items-center">
                 <button class="btn btn-sm btn-secondary btn-round"(click)="decrementar('sabiduria')"><i class="fa fa-minus"></i></button>
                 <span class="mx-3 text-center" style="flex: 1;">{{ caracteristicas['sabiduria'].valor }}</span>
                 <button class="btn btn-sm btn-secondary btn-round"(click)="incrementar('sabiduria')"><i class="fa fa-plus"></i></button>
                 <span class="ms-2"> {{ caracteristicas['sabiduria'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['sabiduria'].modificador }}</span>
+                <div class="d-flex">
+                  <!-- Checkbox para +2 -->
+                  <input type="checkbox" class="mx-2" 
+                         [checked]="caracteristicas['sabiduria'].bonus2" 
+                         [disabled]="!caracteristicas['sabiduria'].bonus2 && !puedeSeleccionarBonus2" 
+                         (change)="asignarBonus('sabiduria', 2)">
+            
+                  <!-- Checkbox para +1 -->
+                  <input type="checkbox" class="mx-2" 
+                         [checked]="caracteristicas['sabiduria'].bonus1" 
+                         [disabled]="!caracteristicas['sabiduria'].bonus1 && !puedeSeleccionarBonus1" 
+                         (change)="asignarBonus('sabiduria', 1)">
+                </div>
               </div>
             </div>
 
             <div class="row align-items-center mb-2">
               <div class="col-4">Carisma</div>
-              <div class="col-8 d-flex justify-content-between align-items-center">
+              <div class="col-6 d-flex justify-content-between align-items-center">
                 <button class="btn btn-sm btn-secondary btn-round"(click)="decrementar('carisma')"><i class="fa fa-minus"></i></button>
                 <span class="mx-3 text-center" style="flex: 1;">{{ caracteristicas['carisma'].valor }}</span>
                 <button class="btn btn-sm btn-secondary btn-round"(click)="incrementar('carisma')"><i class="fa fa-plus"></i></button>
                 <span class="ms-2"> {{ caracteristicas['carisma'].modificador >= 0 ? '+' : '' }}{{ caracteristicas['carisma'].modificador }}</span>
+                <div class="d-flex">
+                  <!-- Checkbox para +2 -->
+                  <input type="checkbox" class="mx-2" 
+                         [checked]="caracteristicas['carisma'].bonus2" 
+                         [disabled]="!caracteristicas['carisma'].bonus2 && !puedeSeleccionarBonus2" 
+                         (change)="asignarBonus('carisma', 2)">
+            
+                  <!-- Checkbox para +1 -->
+                  <input type="checkbox" class="mx-2" 
+                         [checked]="caracteristicas['carisma'].bonus1" 
+                         [disabled]="!caracteristicas['carisma'].bonus1 && !puedeSeleccionarBonus1" 
+                         (change)="asignarBonus('carisma', 1)">
+                </div>
               </div>
             </div>
           </div>
@@ -151,5 +300,20 @@
       
   
     </div>
+  </div>
+
+  
+  <div class="col-12" >
+    <div class="transfondo p-3 rounded  shadow-sm">
+      <div>
+        <h5>TRANSFONDO</h5>
+        <p>Cada historia tiene un principio. El trasfondo de tu personaje revela de dónde vienes, cómo te convertiste en un aventurero, y cuál es tu lugar en el mundo. Puede que tu guerrero haya sido un valiente caballero o un soldado veterano. Tu hechicera pudo haber sido una sabia o una artesana. Tu pícara quizás ha estado en una cofradía de ladrones o ha actuado para grandes audiencias como bufona.</p>
+        <select id="background" class="form-select">
+          <option selected>-Personalizado-</option>
+        </select>
+      </div>
+      <div>
+    </div>
+      
   </div>
 </div>

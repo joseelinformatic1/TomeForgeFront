@@ -16,21 +16,21 @@ export class PersonajesComponent {
       clase: 'Bardo',
       nivel: 4,
       campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/satiro.jpg'  // Asegúrate de que la imagen esté en la ruta correcta
+      imagen: 'images/satiro.jpg'  // Asegúrate de que la imagen esté en la ruta correcta
     },
     {
       nombre: 'Xylon',
       clase: 'Druida',
       nivel: 2,
       campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/xylon.jpg'
+      imagen: 'images/xylon.jpg'
     },
     {
       nombre: 'Mortimer el Risueño',
       clase: 'Bardo',
       nivel: 2,
       campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg',
+      imagen: 'images/mortimer.jpg',
       
     }
     ,
@@ -39,7 +39,7 @@ export class PersonajesComponent {
       clase: 'Bardo',
       nivel: 2,
       campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg',
+      imagen: 'images/mortimer.jpg',
       
     },
     {
@@ -47,7 +47,7 @@ export class PersonajesComponent {
       clase: 'Bardo',
       nivel: 2,
       campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg',
+      imagen: 'images/mortimer.jpg',
       
     },
     {
@@ -55,7 +55,7 @@ export class PersonajesComponent {
       clase: 'Bardo',
       nivel: 2,
       campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg',
+      imagen: 'images/mortimer.jpg',
       
     },
     {
@@ -63,7 +63,7 @@ export class PersonajesComponent {
       clase: 'Bardo',
       nivel: 2,
       campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg',
+      imagen: 'images/mortimer.jpg',
       
     },
     {
@@ -71,7 +71,7 @@ export class PersonajesComponent {
       clase: 'Bardo',
       nivel: 2,
       campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg',
+      imagen: 'images/mortimer.jpg',
       
     },
     {
@@ -79,7 +79,7 @@ export class PersonajesComponent {
       clase: 'Bardo',
       nivel: 2,
       campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg',
+      imagen: 'images/mortimer.jpg',
       
     },
     {
@@ -87,7 +87,7 @@ export class PersonajesComponent {
       clase: 'Bardo',
       nivel: 2,
       campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg',
+      imagen: 'images/mortimer.jpg',
       
     },
     {
@@ -95,7 +95,7 @@ export class PersonajesComponent {
       clase: 'Bardo',
       nivel: 2,
       campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg',
+      imagen: 'images/mortimer.jpg',
       
     },
     {
@@ -103,7 +103,7 @@ export class PersonajesComponent {
       clase: 'Bardo',
       nivel: 2,
       campanya: 'D&D 5ª Ed.',
-      imagen: 'assets/mortimer.jpg',
+      imagen: 'images/mortimer.jpg',
       
     }
     // Agrega más personajes aquí

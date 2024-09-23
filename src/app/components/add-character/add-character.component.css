@@ -3,7 +3,7 @@
 }
 
 
-.detalles , .estado, .caracteristicas{
+.detalles , .estado, .caracteristicas, .transfondo{
   background-color:#FFFFFF;
 }
 
@@ -17,8 +17,8 @@
 
 /* Asegura que los botones sean circulares y tengan el mismo tamaño */
 .btn-round {
-  width: 25px;
-  height: 25px;
+  width: 19px;
+  height: 19px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
