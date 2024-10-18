@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ImageCropperComponent, ImageCroppedEvent, LoadedImage} from 'ngx-image-cropper';
+import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
+
+import { Modal } from 'bootstrap';
 
 // Definir una interfaz para las características
 interface Caracteristica {
@@ -13,27 +15,33 @@ interface Caracteristica {
   bonus1: boolean;  // Para manejar el checkbox del +1
 }
 
-
 @Component({
   selector: 'app-add-character',
   standalone: true,
-  imports: [CommonModule,ImageCropperComponent],
+  imports: [CommonModule, ImageCropperComponent],
   templateUrl: './add-character.component.html',
   styleUrls: ['./add-character.component.css']
 })
 export class AddCharacterComponent {
+
+  // Referencias a elementos del DOM usando ViewChild
+  @ViewChild('inputField') inputField!: ElementRef;
+  @ViewChild('modalInput') modalInput!: ElementRef;
+  @ViewChild('modalElement') modalElement!: ElementRef;
+
   imageChangeEvent: any = '';
   croppedImage: any = '';
-  
+
+  // Manejo de eventos del cropper de imágenes
   fileChangeEvent($event: any): void {
-    this.imageChangeEvent = event;
+    this.imageChangeEvent = $event; // Nota: corregido para tomar $event
   }
 
-  imageCropped(event: ImageCroppedEvent){
+  imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
   }
-  
-  cropperReady(){
+
+  cropperReady() {
     console.log('Cropper Listo');
   }
 
@@ -42,20 +50,18 @@ export class AddCharacterComponent {
   }
 
   guardarImagen() {
-    // Aquí puedes guardar la imagen recortada o subirla al servidor
     console.log('Imagen guardada:', this.croppedImage);
   }
 
   cancelar() {
-    // Acción para cancelar el recorte
     this.imageChangeEvent = '';
     this.croppedImage = '';
   }
 
-  // Definir las características con el tipo correcto
+  // Características inicializadas
   caracteristicas: { [key: string]: Caracteristica } = {
-    fuerza: { valor: 10, modificador: 0, bonus: 0, bonus2: false, bonus1: false, puedeSeleccionarBonus2: true, puedeSeleccionarBonus1: true  },
-    destreza: { valor: 10, modificador: 0, bonus: 0, bonus2: false, bonus1: false, puedeSeleccionarBonus2: true,puedeSeleccionarBonus1: true },
+    fuerza: { valor: 10, modificador: 0, bonus: 0, bonus2: false, bonus1: false, puedeSeleccionarBonus2: true, puedeSeleccionarBonus1: true },
+    destreza: { valor: 10, modificador: 0, bonus: 0, bonus2: false, bonus1: false, puedeSeleccionarBonus2: true, puedeSeleccionarBonus1: true },
     constitucion: { valor: 10, modificador: 0, bonus: 0, bonus2: false, bonus1: false, puedeSeleccionarBonus2: true, puedeSeleccionarBonus1: true },
     inteligencia: { valor: 10, modificador: 0, bonus: 0, bonus2: false, bonus1: false, puedeSeleccionarBonus2: true, puedeSeleccionarBonus1: true },
     sabiduria: { valor: 10, modificador: 0, bonus: 0, bonus2: false, bonus1: false, puedeSeleccionarBonus2: true, puedeSeleccionarBonus1: true },
@@ -65,58 +71,120 @@ export class AddCharacterComponent {
   puedeSeleccionarBonus2: boolean = true;
   puedeSeleccionarBonus1: boolean = true;
 
-  // Método para incrementar el valor y actualizar el modificador
+  readonly LIMITE_MAXIMO = 18;
+  readonly LIMITE_MINIMO = 3;
+
+  // Incrementar el valor y actualizar el modificador
   incrementar(caracteristica: string) {
-    if (this.caracteristicas[caracteristica].valor !== undefined) {
+    if (this.caracteristicas[caracteristica].valor < this.LIMITE_MAXIMO) {
       this.caracteristicas[caracteristica].valor += 1;
-      this.actualizarModificador(caracteristica); // Actualizamos el modificador
+      this.actualizarModificador(caracteristica);
     }
   }
 
-  // Método para decrementar el valor y actualizar el modificador
+
+  // Decrementar el valor y actualizar el modificador
   decrementar(caracteristica: string) {
-    if (this.caracteristicas[caracteristica].valor !== undefined && this.caracteristicas[caracteristica].valor > 0) {
+    if (this.caracteristicas[caracteristica].valor > this.LIMITE_MINIMO) {
       this.caracteristicas[caracteristica].valor -= 1;
-      this.actualizarModificador(caracteristica); // Actualizamos el modificador
+      this.actualizarModificador(caracteristica);
     }
   }
-
-  // Método para actualizar el modificador
+  // Actualizar el modificador
   actualizarModificador(caracteristica: string) {
     const valor = this.caracteristicas[caracteristica].valor;
-    this.caracteristicas[caracteristica].modificador = Math.floor((valor - 10) / 2); // Actualiza el modificador cada 2 puntos
+    this.caracteristicas[caracteristica].modificador = Math.floor((valor - 10) / 2);
   }
 
-  // Método para asignar bonus
- 
-asignarBonus(caracteristica: string, bonus: number) {
-  const statObj = this.caracteristicas[caracteristica];
-
-  if (bonus === 2) {
-    if (statObj.bonus2) {
-      // Si ya tiene el +2, lo deseleccionamos
-      statObj.bonus2 = false;
-      this.puedeSeleccionarBonus2 = true;
-    } else if (this.puedeSeleccionarBonus2) {
-      // Si se puede asignar +2, desactivamos +2 en cualquier otra característica
-      Object.keys(this.caracteristicas).forEach(key => {
-        this.caracteristicas[key].bonus2 = (key === caracteristica);
-      });
-      this.puedeSeleccionarBonus2 = false;
+  asignarBonus(caracteristica: string, bonus: number) {
+    // Si selecciona el checkbox de +2
+    if (bonus === 2) {
+      if (this.caracteristicas[caracteristica].bonus2) {
+        // Si el checkbox de +2 estaba seleccionado, lo desmarcamos y habilitamos todo de nuevo
+        this.caracteristicas[caracteristica].valor -= 2;
+        this.caracteristicas[caracteristica].bonus2 = false;
+        this.habilitarTodosCheckBoxes(); // Vuelve a habilitar todos los checkboxes
+      } else {
+        // Si no estaba seleccionado, lo marcamos y deshabilitamos el checkbox de +1
+        this.caracteristicas[caracteristica].valor += 2;
+        this.caracteristicas[caracteristica].bonus2 = true;
+        this.caracteristicas[caracteristica].puedeSeleccionarBonus1 = false; // Deshabilitamos el +1 de esta característica
+        this.deshabilitarOtrosCheckBoxes(caracteristica, bonus);
+      }
     }
-  } else if (bonus === 1) {
-    if (statObj.bonus1) {
-      // Si ya tiene el +1, lo deseleccionamos
-      statObj.bonus1 = false;
-      this.puedeSeleccionarBonus1 = true;
-    } else if (this.puedeSeleccionarBonus1) {
-      // Si se puede asignar +1, desactivamos +1 en cualquier otra característica
-      Object.keys(this.caracteristicas).forEach(key => {
-        this.caracteristicas[key].bonus1 = (key === caracteristica);
-      });
-      this.puedeSeleccionarBonus1 = false;
+
+    // Si selecciona el checkbox de +1
+    if (bonus === 1) {
+      if (this.caracteristicas[caracteristica].bonus1) {
+        // Si el checkbox de +1 estaba seleccionado, lo desmarcamos y habilitamos todo de nuevo
+        this.caracteristicas[caracteristica].valor -= 1;
+        this.caracteristicas[caracteristica].bonus1 = false;
+        this.habilitarTodosCheckBoxes(); // Vuelve a habilitar todos los checkboxes
+      } else {
+        // Si no estaba seleccionado, lo marcamos y deshabilitamos el checkbox de +2
+        this.caracteristicas[caracteristica].valor += 1;
+        this.caracteristicas[caracteristica].bonus1 = true;
+        this.caracteristicas[caracteristica].puedeSeleccionarBonus2 = false; // Deshabilitamos el +2 de esta característica
+        this.deshabilitarOtrosCheckBoxes(caracteristica, bonus);
+      }
+    }
+
+    this.actualizarModificador(caracteristica); // Actualizamos el modificador después del cambio
+  }
+
+  // Método para deshabilitar otros checkboxes de las demás características, excepto la actual
+  deshabilitarOtrosCheckBoxes(caracteristicaSeleccionada: string, bonus: number) {
+    for (const key in this.caracteristicas) {
+      if (key !== caracteristicaSeleccionada) { // Solo deshabilitamos otras características
+        if (bonus === 2) {
+          this.caracteristicas[key].puedeSeleccionarBonus2 = false;
+        }
+        if (bonus === 1) {
+          this.caracteristicas[key].puedeSeleccionarBonus1 = false;
+        }
+      }
     }
   }
-}
 
+  // Método para habilitar todos los checkboxes cuando se deselecciona un bonus
+  habilitarTodosCheckBoxes() {
+    for (const key in this.caracteristicas) {
+      this.caracteristicas[key].puedeSeleccionarBonus2 = true;
+      this.caracteristicas[key].puedeSeleccionarBonus1 = true;
+    }
+  }
+
+
+
+
+
+  // Abrir el modal y asignar valores al campo
+  abrirModal() {
+    const modalInputElement = this.modalInput.nativeElement as HTMLInputElement;
+    const inputFieldElement = this.inputField.nativeElement as HTMLInputElement;
+
+    // Pasamos el valor del inputField al modalInput
+    modalInputElement.value = inputFieldElement.value;
+
+    // Mostrar el modal usando Bootstrap (suponiendo que Bootstrap esté instalado)
+    const modalElement = this.modalElement.nativeElement;
+    const modal = new Modal(modalElement);
+    modal.show();
+  }
+
+  // Guardar valor del modal en el input original y cerrar el modal
+  guardarModal() {
+    const modalInputElement = this.modalInput.nativeElement as HTMLInputElement;
+    const inputFieldElement = this.inputField.nativeElement as HTMLInputElement;
+
+    // Asignamos el valor del modalInput al inputField
+    inputFieldElement.value = modalInputElement.value;
+
+    // Cerramos el modal
+    const modalElement = this.modalElement.nativeElement;
+    const modal = Modal.getInstance(modalElement) as Modal;
+    if (modal) {
+      modal.hide();
+    }
+  }
 }
